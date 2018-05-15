@@ -1,0 +1,13 @@
+{
+  "name": "mi133-ss2018-lecture-7",
+  "version": "1.0.0",
+  "description": "MI133 lecture 7 summer semester 2018",
+  "scripts": {
+    "start": "npx elm-live src/app/index.elm --open --debug"
+  },
+  "author": "Michael Jonathan Lee",
+  "devDependencies": {
+    "elm": "^0.18.0",
+    "elm-live": "^2.7.5"
+  }
+}
