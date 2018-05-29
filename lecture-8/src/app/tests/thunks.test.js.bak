@@ -1,0 +1,44 @@
+import axios from 'axios'
+import {reqGetCount} from '../actions'
+
+jest.mock('axios')
+
+describe('thunks', () => {
+    describe('get count', () => {
+        it('queries backend for number of counts', async () => {
+            axios.get.mockResolvedValue({data: {currentCount: 3}})
+            const getCalls = axios.get.mock.calls
+
+            const dispatch = jest.fn()
+
+            await reqGetCount()(dispatch)
+
+            expect(getCalls.length).toEqual(1)
+            expect(getCalls[0].length).toEqual(1)
+            expect(getCalls[0][0]).toEqual('/api/count')
+        })
+
+        it('sets number of counts from backend', async () => {
+            axios.get.mockResolvedValue({data: {currentCount: 11}})
+
+            const dispatch = jest.fn()
+            const dispatchCalls = dispatch.mock.calls
+
+            await reqGetCount()(dispatch)
+
+            expect(dispatchCalls.length).toEqual(1)
+            expect(dispatchCalls[0][0]).toEqual({type: 'SET_COUNT', payload: 11})
+        })
+
+        it('does not alter state on backend error', async () => {
+            axios.get.mockRejectedValue({data: 'just some error'})
+
+            const dispatch = jest.fn()
+            const dispatchCalls = dispatch.mock.calls
+
+            await reqGetCount()(dispatch)
+
+            expect(dispatchCalls.length).toEqual(0)
+        })
+    })
+})

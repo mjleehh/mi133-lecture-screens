@@ -1,0 +1,36 @@
+import backend from '../backend'
+import req from 'supertest'
+
+
+describe('backend', () => {
+    const app = backend()
+
+    it('returns count', () => {
+        return req(app).get('/api/count')
+            .expect(200)
+            .then(({body}) => {
+                expect(body).toHaveProperty('currentCount')
+                expect(body.currentCount).toBeNumber()
+            })
+    })
+
+    it('can increment count', async () => {
+        await req(app).delete('/api/count')
+        return req(app).put('/api/count')
+            .expect(200)
+            .then(({body}) => {
+                expect(body).toHaveProperty('currentCount')
+                expect(body.currentCount).toEqual(1)
+            })
+    })
+
+    it('can reset count', async () => {
+        await req(app).put('/api/count')
+        return req(app).delete('/api/count')
+            .expect(200)
+            .then(({body}) => {
+                expect(body).toHaveProperty('currentCount')
+                expect(body.currentCount).toEqual(0)
+            })
+    })
+})

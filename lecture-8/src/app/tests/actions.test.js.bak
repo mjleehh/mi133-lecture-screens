@@ -1,0 +1,19 @@
+import {
+    setCount
+} from '../actions'
+
+describe('actions', () => {
+    describe('set count', () => {
+        it('has action ID', () => {
+            const action = setCount(12)
+
+            expect(action.type).toEqual('SET_COUNT')
+        })
+
+        it('has count number as payload', () => {
+            const action = setCount(42)
+
+            expect(action.payload).toEqual(42)
+        })
+    })
+})

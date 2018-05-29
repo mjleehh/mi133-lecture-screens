@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "MI133 lecture 6 summer semester 2018",
   "scripts": {
-    "start": "BABEL_ENV=server npx babel-node ./src/index.js"
+    "start": "BABEL_ENV=backend npx babel-node ./src/index.js"
   },
   "author": "Michael Jonathan Lee",
   "dependencies": {
